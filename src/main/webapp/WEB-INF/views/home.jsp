@@ -13,7 +13,9 @@ cal2 = "#";// 이후 계산될 사칙연산값. default='#'
 inno = 'n';// y: 
 log="" //이전 계산된 정보를 담는 값
 
-	
+
+//로그 확인: 		console.log('num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
+
 	
 	
 	// 1. eval을 이용하여 만든 간단한 계산기
@@ -26,26 +28,34 @@ log="" //이전 계산된 정보를 담는 값
 		result=eval(cal.textfile.value);
 		cal.textfile.value=result;		
 	} */
+
 	
+
 	
 
 	//사칙연산 버튼을 클릭했을때 발생하는 함수	
 	// bh: 클릭된 버튼
-	function calc(bh) {	
+	function calc(bh) {
 		
-		cal2 = bh;
+		console.log('**calc start**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
+
+		
+		cal.calculationLog.value+=bh;
+		cal2 = bh;		
 		num1 = result;
 		num2 = cal.textfile.value;
-		cal.textfile.value = "";
-		oper();
-
+		cal.textfile.value = "";		
+		oper(bh);
 	}
 
 	
+	
+	
+	// '+-'버튼클릭시 구현되는 함수
 	function reverseMark(){
 		cal.textfile.value=cal.textfile.value*(-1);
+		cal.calculationLog.value=cal.textfile.value
 		result=cal.textfile.value;
-		
 	}
 	
 	
@@ -61,39 +71,59 @@ log="" //이전 계산된 정보를 담는 값
 		cal2 = "#";		
 		inno = 'n';
 		cal.textfile.value = "";
+		cal.calculationLog.value="";
 		alert("complete to initailize");
 	}
 	
 	
-	function oper() {		
+	function oper(bh) {		
+		console.log('**oper start**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
 
+		
 		if (cal1 == "+") {
 			cal.textfile.value = "";
 			result = parseInt(num1) + parseInt(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
+			if(bh=="=")
+			{
+			cal.calculationLog.value+=result;
+			}
 		}
 
 		else if (cal1 == "-") {
 			result = parseInt(num1) - parseInt(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
+			if(bh=="=")
+			{
+			cal.calculationLog.value+=result;
+			}
 		}
 
 		else if (cal1 == "*") {
 			result = parseInt(num1) * parseInt(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
+			if(bh=="=")
+			{
+			cal.calculationLog.value+=result;
+			}
 		}
 		
 		else if (cal1=="/"){			
 			if (num2==0){
 				alert('bed index to div');
+				initialization();
 			}
 			else{				
 		 	result=parseInt(num1)/parseInt(num2)
 			cal.textfile.value=result;
 			cal1=cal2;
+			if(bh=="=")
+			{
+			cal.calculationLog.value+=result;
+			}
 			}
 			} 
 		 
@@ -105,18 +135,24 @@ log="" //이전 계산된 정보를 담는 값
 		} 
 		else if (cal1 == "=") {
 			cal.textfile.value = result;
-			
+			cal.calculationLog.value = result
 			
 			if(cal2!="="){			
 			cal.textfile.value = "";
+			cal.calculationLog.value = result+bh;
 			}
 			cal1 = cal2;		
 		} 
 		
-		inno = 'y'
+		inno = 'y';//계산한 후
+		console.log('**oper function over**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value+ '	/bh: '+bh);
+
 	}
 
+	
+	
 	function enterNum(num) {
+		cal.calculationLog.value +=num;		
 		if (inno == "y") {
 			cal.textfile.value = num;
 			inno = "n"
