@@ -52,10 +52,7 @@
 		oper();
 	}
 
-	function oper() {
-		
-		
-		
+	function oper() {		
 
 		if (cal1 == "+") {
 			cal.textfile.value = "";
@@ -76,11 +73,16 @@
 			cal1 = cal2;
 		}
 		
-		/* else if (cal1=="/"){				
+		else if (cal1=="/"){			
+			if (num2==0){
+				alert('bed index to div');
+			}
+			else{				
 		 	result=parseInt(num1)/parseInt(num2)
 			cal.textfile.value=result;
 			cal1=cal2;
-			} */
+			}
+			} 
 		 
 
 		else if (cal1 == "#") {
@@ -95,7 +97,6 @@
 		}
 
 		inno = 'y'
-
 	}
 
 	function enterNum(num) {
@@ -120,6 +121,7 @@
 	<p>tag</p>
 
 	<form name="cal">
+		<br> <input type="text" name="calculationLog" value="">
 		<br> <input type="text" name="textfile" value=""> <br>
 		<input type="button" name="btn7" value="7" onclick="enterNum(7)">
 		<input type="button" name="btn8" value="8" onclick="enterNum(8)">
