@@ -5,13 +5,12 @@
 <title>chaewon's calculator</title>
 <script type="text/javascript">
 	
-	var result="";
-	var num1="";
-	var num2="";
-	var cal1="#";
-	var cal2="#";
-	var result;
-	var inno='n';
+result = "";//계산 결과가 담기는 값
+num1 = "";//이전 누른 숫자 or 기존 계산 값이 담김
+num2 = "";//연산자 이후 누른 숫자
+cal1 = "#";//이전 계산된 사칙연산값. default=#
+cal2 = "#";// 이후 계산될 사칙연산값. default='#'		
+inno = 'n';// y: 
 	
 	
 	
@@ -28,30 +27,36 @@
 	} */
 	
 	
-	
-	
-	//초기화 시키는 함수
-	function makeInnoStatus(){
-		
-		result = "";
-		num1 = "";
-		num2 = "";
-		cal1 = "#";
-		cal2 = "#";
-		result="";
-		inno = 'n';
-	}
 
 	//사칙연산 버튼을 클릭했을때 발생하는 함수	
-
-	function calc(bh) {
+	// bh: 클릭된 버튼
+	function calc(bh) {	
+		
 		cal2 = bh;
 		num1 = result;
 		num2 = cal.textfile.value;
 		cal.textfile.value = "";
 		oper();
+
 	}
 
+	
+	
+	
+	
+	// 초기화 시켜주는 함수
+	function initialization(){
+		result = "";
+		num1 = "";
+		num2 = "";
+		cal1 = "#";
+		cal2 = "#";		
+		inno = 'n';
+		cal.textfile.value = "";
+		alert("complete to initailize");
+	}
+	
+	
 	function oper() {		
 
 		if (cal1 == "+") {
@@ -92,8 +97,12 @@
 		} 
 		else if (cal1 == "=") {
 			cal.textfile.value = result;
+			cal.textfile.value = "";
+			cal1 = cal2;		
 		} 
-		else {
+		else if(cal=="+-"){
+			result=result*(-1);
+			cal.textfile.value = result;
 		}
 
 		inno = 'y'
@@ -133,7 +142,7 @@
 		<input type="button" name="btn4" value="4" onclick="enterNum(4)"> 
 		<input type="button" name="btn5" value="5" onclick="enterNum(5)">
 		<input type="button" name="btn6" value="6" onclick="enterNum(6)">
-		<input type="button" name="btnmultidv" value="/" >
+		<input type="button" name="btnmultidv" value="/" onclick ='calc("/")' >
 
 		<br> 
 		<input type="button" name="btn1" value="1" onclick="enterNum(1)">
@@ -142,12 +151,14 @@
 		<input type="button" name="btnmultsub" value="-" onclick='calc("-")'>
 
 		<br>
-		<input type="button" name="btnPM" value="+-">
+		<input type="button" name="btnPM" value="+-" onclick='calc("+-")'>
 		<input type="button" name="btn0" value="0" onclick="enterNum(0)">
 		<input type="button" name="btnPoint" value=".">
 		<input type="button" name="btnplus" value="+" onclick='calc("+")'> 
 		<br>
 	    <input type="button" name="btnequals" value="=" onclick='calc("=")'>
+	    <input type="button" name="btninit" value="c" onclick="initialization()">
+	    
 
 
 	</form>
