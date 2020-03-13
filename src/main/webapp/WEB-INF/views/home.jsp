@@ -11,7 +11,8 @@ num2 = "";//연산자 이후 누른 숫자
 cal1 = "#";//이전 계산된 사칙연산값. default=#
 cal2 = "#";// 이후 계산될 사칙연산값. default='#'		
 inno = 'n';// y: 
-	
+log="" //이전 계산된 정보를 담는 값
+
 	
 	
 	
@@ -40,6 +41,13 @@ inno = 'n';// y:
 
 	}
 
+	
+	function reverseMark(){
+		cal.textfile.value=cal.textfile.value*(-1);
+		result=cal.textfile.value;
+		
+	}
+	
 	
 	
 	
@@ -97,14 +105,14 @@ inno = 'n';// y:
 		} 
 		else if (cal1 == "=") {
 			cal.textfile.value = result;
+			
+			
+			if(cal2!="="){			
 			cal.textfile.value = "";
+			}
 			cal1 = cal2;		
 		} 
-		else if(cal=="+-"){
-			result=result*(-1);
-			cal.textfile.value = result;
-		}
-
+		
 		inno = 'y'
 	}
 
@@ -151,7 +159,7 @@ inno = 'n';// y:
 		<input type="button" name="btnmultsub" value="-" onclick='calc("-")'>
 
 		<br>
-		<input type="button" name="btnPM" value="+-" onclick='calc("+-")'>
+		<input type="button" name="btnPM" value="+-" onclick="reverseMark()">
 		<input type="button" name="btn0" value="0" onclick="enterNum(0)">
 		<input type="button" name="btnPoint" value=".">
 		<input type="button" name="btnplus" value="+" onclick='calc("+")'> 
