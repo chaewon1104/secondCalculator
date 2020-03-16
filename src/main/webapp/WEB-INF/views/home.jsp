@@ -30,15 +30,31 @@ log="" //이전 계산된 정보를 담는 값
 	} */
 
 	
-
+	//지우는 기능
+	function erase(){		
+		var eraseV=cal.textfile.value;
+		eraseV=cal.textfile.value.substring(0,eraseV.length-1);
+		cal.textfile.value=eraseV;
+		cal.calculationLog.value=eraseV;
+		
+	}
+	
+	
+	//소수점 추가 함수
+	function addPoint(){
+		if(!cal.textfile.value.includes('.')){
+		cal.textfile.value+="."
+		cal.calculationLog.value+=".";
+		}
+		
+	}
+	
+	
 	
 
 	//사칙연산 버튼을 클릭했을때 발생하는 함수	
 	// bh: 클릭된 버튼
 	function calc(bh) {
-		
-		console.log('**calc start**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
-
 		
 		cal.calculationLog.value+=bh;
 		cal2 = bh;		
@@ -72,17 +88,16 @@ log="" //이전 계산된 정보를 담는 값
 		inno = 'n';
 		cal.textfile.value = "";
 		cal.calculationLog.value="";
-		alert("complete to initailize");
-	}
+		}
 	
 	
 	function oper(bh) {		
-		console.log('**oper start**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
+		//console.log('**oper start**'+'num1:'+num1+'	/num2:'+num2+'	/result:'+result+'	/cal1:'+cal1+'	/cal2:'+cal2+'	/cal.textfile.value:'+cal.textfile.value+'	/cal.calculationLog.value:'+cal.calculationLog.value);
 
 		
 		if (cal1 == "+") {
 			cal.textfile.value = "";
-			result = parseInt(num1) + parseInt(num2)
+			result = Number(num1) +  Number(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
 			if(bh=="=")
@@ -92,7 +107,7 @@ log="" //이전 계산된 정보를 담는 값
 		}
 
 		else if (cal1 == "-") {
-			result = parseInt(num1) - parseInt(num2)
+			result = Number(num1) - Number(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
 			if(bh=="=")
@@ -102,7 +117,7 @@ log="" //이전 계산된 정보를 담는 값
 		}
 
 		else if (cal1 == "*") {
-			result = parseInt(num1) * parseInt(num2)
+			result = Number(num1) * Number(num2)
 			cal.textfile.value = result;
 			cal1 = cal2;
 			if(bh=="=")
@@ -117,7 +132,7 @@ log="" //이전 계산된 정보를 담는 값
 				initialization();
 			}
 			else{				
-		 	result=parseInt(num1)/parseInt(num2)
+		 	result=Number(num1)/Number(num2)
 			cal.textfile.value=result;
 			cal1=cal2;
 			if(bh=="=")
@@ -180,6 +195,8 @@ log="" //이전 계산된 정보를 담는 값
 		<input type="button" name="btn8" value="8" onclick="enterNum(8)">
 		<input type="button" name="btn9" value="9" onclick="enterNum(9)">
 		<input type="button" name="btnmulti" value="*" onclick='calc("*")'>
+		<input type="button" name="btnErase" value="erase" onclick="erase()">
+		
 
  		
 		<br>
@@ -197,11 +214,14 @@ log="" //이전 계산된 정보를 담는 값
 		<br>
 		<input type="button" name="btnPM" value="+-" onclick="reverseMark()">
 		<input type="button" name="btn0" value="0" onclick="enterNum(0)">
-		<input type="button" name="btnPoint" value=".">
+	    <input type="button" name="btnPoint" value="." onclick="addPoint()">
 		<input type="button" name="btnplus" value="+" onclick='calc("+")'> 
 		<br>
 	    <input type="button" name="btnequals" value="=" onclick='calc("=")'>
 	    <input type="button" name="btninit" value="c" onclick="initialization()">
+	    
+	    
+	    
 	    
 
 
